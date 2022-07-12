@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 public class Conexion {
     Connection conection;
-    String driver="com.mysql.jdbc.Driver";
+    String driver="com.mysql.cj.jdbc.Driver";
     String cadenaConexion="jdbc:mysql://localhost:3306/reto1_g54_db";
     String usuario="root";
     String contrasena="";
@@ -23,12 +23,7 @@ public class Conexion {
         }
     }
 
-    private static class conection {
-        public conection() {
-            
-        }
-    }
-    public conection getConnection(){
-        return (conection) conection;
+    public Connection getConnection(){
+        return conection;
     }
 }
