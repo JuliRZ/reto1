@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class UserMenu extends javax.swing.JFrame {
@@ -93,6 +94,11 @@ public void borrarDatosTabla() {
                 return canEdit [columnIndex];
             }
         });
+        tblEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmpleadosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmpleados);
 
         btnBuscar.setText("Buscar");
@@ -144,6 +150,29 @@ public void borrarDatosTabla() {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
+        int row=tblEmpleados.getSelectedRow();
+        System.out.print("Fila seleccionada: "+row);
+        if (row<0){
+            JOptionPane.showMessageDialog(this, "Selecciona un empleado","",JOptionPane.WARNING_MESSAGE);
+        }else{
+            int id=Integer.parseInt(tblEmpleados.getValueAt(row, 0).toString());
+            String nombre=(String) tblEmpleados.getValueAt(row, 1);
+            String apellidos=(String) tblEmpleados.getValueAt(row, 2);
+            String tipoDocumento=(String) tblEmpleados.getValueAt(row, 3);
+            String documento=(String) tblEmpleados.getValueAt(row, 4);
+            String correo=(String) tblEmpleados.getValueAt(row, 5);
+            System.out.println("Id: "+id+", empleado: "+nombre+" "+apellidos
+                                +", tipo documento: "+tipoDocumento+", numero: "+documento
+                                +", correo:"+correo);
+            ShowUserForm showUserForm=new ShowUserForm (this,true);
+            showUserForm.recibeDatos(id, nombre, apellidos, documento, correo);
+            showUserForm.setVisible(true);
+            eliminarDatosTableEmpleado();
+            listarEmpleados();
+        }
+    }//GEN-LAST:event_tblEmpleadosMouseClicked
 
     /**
      * @param args the command line arguments
